@@ -5,7 +5,10 @@ from proto.v1.tracker import customers_pb2_grpc
 from proto.v1.tracker import customers_pb2
 from proto.v1.response import status_pb2
 from customers.validators import validate_customer
+from utils.grpc import log_requests
 
+
+@log_requests
 class CustomerService(customers_pb2_grpc.CustomerServiceServicer):
 
     def CreateCustomer(self, request, context):
@@ -15,8 +18,9 @@ class CustomerService(customers_pb2_grpc.CustomerServiceServicer):
         :param request: A CreateCustomerRequest
         :param context: The grpc context
         """
+
         customer = request.customer
-        print("Creating a customer: {}".format(customer))
+        # print("Creating a customer: {}".format(customer))
         errors = validate_customer(customer)
         if errors:
             return customers_pb2.CreateCustomerResponse(
