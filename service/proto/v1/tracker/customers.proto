@@ -1,11 +1,11 @@
 
 syntax = "proto3"; 
 
-package traak.v1.tracker;
+package traack.v1.tracker;
 
 import "proto/v1/response/status.proto";
 
-option go_package = "github.com/mhannig/traak/service/lib/v1/tracker";
+option go_package = "github.com/mhannig/traack/service/lib/v1/tracker";
 
 message Customer {
     uint64 id = 1;
@@ -20,7 +20,7 @@ message GetCustomerRequest {
 
 message GetCustomerResponse {
     Customer customer = 1;
-    traak.v1.response.Status status = 2;
+    traack.v1.response.Status status = 2;
 }
 
 
@@ -29,7 +29,7 @@ message ListCustomersRequest {
 
 message ListCustomersResponse {
     repeated Customer customers = 1;
-    traak.v1.response.Status status = 2;
+    traack.v1.response.Status status = 2;
 }
 
 message CreateCustomerRequest {
@@ -38,7 +38,7 @@ message CreateCustomerRequest {
 
 message CreateCustomerResponse {
     Customer customer = 1;
-    traak.v1.response.Status status = 2;
+    traack.v1.response.Status status = 2;
 }
 
 

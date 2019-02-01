@@ -6,7 +6,7 @@ import (
 	"log"
 	"time"
 
-	tracker_pb "github.com/mhannig/traak/service/lib/v1/tracker"
+	tracker_pb "github.com/mhannig/traack/service/lib/v1/tracker"
 	"google.golang.org/grpc"
 )
 

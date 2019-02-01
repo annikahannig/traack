@@ -1,9 +1,9 @@
 
 syntax = "proto3";
 
-package traak.v1.response;
+package traack.v1.response;
 
-option go_package = "github.com/mhannig/traak/service/lib/v1/response";
+option go_package = "github.com/mhannig/traack/service/lib/v1/response";
 
 message ValidationError {
     string field = 10;
