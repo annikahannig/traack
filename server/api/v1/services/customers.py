@@ -17,8 +17,8 @@ class CustomerService(customers_pb2_grpc.CustomerServiceServicer):
         """
         customer = request.customer
         print("Creating a customer: {}".format(customer))
-        ok, errors = validate_customer(customer)
-        if not ok:
+        errors = validate_customer(customer)
+        if errors:
             return customers_pb2.CreateCustomerResponse(
                 status=status_pb2.Status(code=400, data_errors=errors),
             )

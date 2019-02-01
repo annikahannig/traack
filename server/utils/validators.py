@@ -26,10 +26,10 @@ def protobuf_validator(validator):
         if type(type(message)) == GeneratedProtocolMessageType:
             message = MessageToDict(message)
 
-        result, errors = validator(message)
+        errors = validator(message)
 
         # Wrap errors in ValidationError messages
-        return result, errors_to_messages(errors)
+        return errors_to_messages(errors)
 
     return validate_message
 

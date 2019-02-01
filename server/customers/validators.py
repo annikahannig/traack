@@ -16,8 +16,8 @@ CUSTOMER_SCHEMA = {
 def validate_customer(customer):
     """Validate a customer"""
     validator = Validator(CUSTOMER_SCHEMA)
-    result = validator.validate(customer)
+    validator.validate(customer)
     errors = validator.errors
 
-    return result, errors
+    return errors
 
