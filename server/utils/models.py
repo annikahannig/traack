@@ -48,7 +48,6 @@ class ProtobufModelMixin(metaclass=ProtobufModelMixinMeta):
         return {c.key: getattr(self, c.key)
                 for c in self.__table__.columns}
 
-
     def to_message(self, pb_message_type):
         """"Convert to protobuf message type"""
         return pb_message_type(**self.to_dict())
