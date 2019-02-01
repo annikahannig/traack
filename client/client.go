@@ -32,9 +32,32 @@ func main() {
 			Name: "Fnordbert.",
 		},
 	})
-
 	if err != nil {
-		log.Fatal(err)
+		log.Println(err)
+	}
+
+	fmt.Println("Result:")
+	fmt.Println(res)
+
+	res, err = customers_svc.CreateCustomer(ctx, &tracker_pb.CreateCustomerRequest{
+		Customer: &tracker_pb.Customer{
+			Name: "Ft",
+		},
+	})
+	if err != nil {
+		log.Println(err)
+	}
+
+	fmt.Println("Result:")
+	fmt.Println(res)
+
+	res, err = customers_svc.CreateCustomer(ctx, &tracker_pb.CreateCustomerRequest{
+		Customer: &tracker_pb.Customer{
+			Name: "",
+		},
+	})
+	if err != nil {
+		log.Println(err)
 	}
 
 	fmt.Println("Result:")

@@ -1,12 +1,23 @@
 
-class CustomerValidator():
+from cerberus.validator import Validator
 
-    def validate(self, customer):
-        """
-        Validate a customer
+from utils.validators import protobuf_validator
 
-        :returns: a tuple of Success and Errors
-        :rtype: tuple(boolean, list)
-        """
+CUSTOMER_SCHEMA = {
+    "name": {
+        "required": True,
+        "minlength": 3,
+        "maxlength": 42,
+    }
+}
 
-        return True, []
+
+@protobuf_validator
+def validate_customer(customer):
+    """Validate a customer"""
+    validator = Validator(CUSTOMER_SCHEMA)
+    result = validator.validate(customer)
+    errors = validator.errors
+
+    return result, errors
+
