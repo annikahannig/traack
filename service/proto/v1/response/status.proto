@@ -3,15 +3,15 @@ syntax = "proto3";
 
 package traak.v1.response;
 
-import "google/protobuf/any.proto";
+import "proto/v1/response/errors.proto";
 
 option go_package = "github.com/mhannig/traak/service/lib/v1/response";
+
 
 message Status {
     int32 code = 1;
     string message = 2;
 
-    repeated google.protobuf.Any details = 3;
+    repeated ValidationError data_errors = 3;
 }
-
 
