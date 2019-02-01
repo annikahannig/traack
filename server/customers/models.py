@@ -2,9 +2,10 @@
 import sqlalchemy as sa
 
 from db import models
+from utils.models import ProtobufModelMixin
 
 
-class Customer(models.Base):
+class Customer(models.Base, ProtobufModelMixin):
     # Table
     __tablename__ = "customer"
 
