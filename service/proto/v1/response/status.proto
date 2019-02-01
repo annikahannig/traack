@@ -1,0 +1,17 @@
+
+syntax = "proto3";
+
+package traak.v1.response;
+
+import "google/protobuf/any.proto";
+
+option go_package = "github.com/mhannig/traak/service/lib/v1/response";
+
+message Status {
+    int32 code = 1;
+    string message = 2;
+
+    repeated google.protobuf.Any details = 3;
+}
+
+

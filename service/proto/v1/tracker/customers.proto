@@ -1,0 +1,56 @@
+
+syntax = "proto3"; 
+
+package traak.v1.tracker;
+
+import "proto/v1/response/status.proto";
+
+option go_package = "github.com/mhannig/traak/service/lib/v1/tracker";
+
+message Customer {
+    uint64 id = 1;
+
+    string name = 2;
+}
+
+// Customers Service
+message GetCustomerRequest {
+    uint64 id = 1;
+}
+
+message GetCustomerResponse {
+    Customer customer = 1;
+    traak.v1.response.Status status = 2;
+}
+
+
+message ListCustomersRequest {
+}
+
+message ListCustomersResponse {
+    repeated Customer customers = 1;
+    traak.v1.response.Status status = 2;
+}
+
+message CreateCustomerRequest {
+    Customer customer = 1;
+}
+
+message CreateCustomerResponse {
+    Customer customer = 1;
+    traak.v1.response.Status status = 2;
+}
+
+
+service CustomerService {
+    rpc CreateCustomer(CreateCustomerRequest) 
+        returns (CreateCustomerResponse) {}
+
+    rpc GetCustomer(GetCustomerRequest)
+        returns (GetCustomerResponse) {}
+
+    rpc ListCustomers(ListCustomersRequest)
+        returns (ListCustomersResponse) {}
+}
+
+
