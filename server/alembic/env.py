@@ -25,6 +25,7 @@ fileConfig(config.config_file_name)
 
 # add your model's MetaData object here
 # for 'autogenerate' support
+from customers import models
 from db import models
 
 target_metadata = models.Base.metadata
