@@ -3,6 +3,6 @@
 *.swp
 
 # Build artifacts
-proto/lib
+service/lib
 server/proto
 
