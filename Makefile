@@ -23,6 +23,13 @@ protobuf:
 		    service/proto/v1/response/*.proto \
 		    service/proto/v1/tracker/*.proto
 
+	# Console:
+	python3 -m grpc_tools.protoc -Iservice/ \
+		    --python_out=console/ \
+			--grpc_python_out=server/ \
+		    service/proto/v1/response/*.proto \
+		    service/proto/v1/tracker/*.proto
+
 	# Client:
 	protoc -I service/ --go_out=plugins=grpc:$(GOROOT) \
 		    service/proto/v1/tracker/*.proto
