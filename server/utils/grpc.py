@@ -6,6 +6,10 @@ GRPC helpers
 import logging
 from functools import wraps
 
+from proto.v1.response import status_pb2, errors_pb2
+
+from utils.exceptions import exception_to_runtime_error
+
 def _log_request(logger, method):
     @wraps(method)
     def log(self, request, context):
@@ -33,3 +37,31 @@ def log_requests(cls):
             setattr(cls, attr, _log_request(logger, method))
 
     return cls
+
+
+class catch_errors:
+    """
+    Catch exceptions and make error response
+    """
+    def __init__(self, response_cls):
+        """Initialize decorator"""
+        self.response_cls = response_cls
+
+    def __call__(self, handler_fn):
+        """Wrap function"""
+        @wraps(handler_fn)
+        def wrapper(*args, **kwargs):
+            try:
+                return handler_fn(*args, **kwargs)
+            except Exception as e:
+                status = status_pb2.Status(
+                    code=500,
+                    message="generic_error",
+                    runtime_errors=[
+                        exception_to_runtime_error(e),
+                    ]
+                )
+                response = self.response_cls(status=status)
+                return response
+
+        return wrapper
