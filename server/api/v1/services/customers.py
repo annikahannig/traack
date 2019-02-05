@@ -5,13 +5,16 @@ from proto.v1.tracker import customers_pb2_grpc
 from proto.v1.tracker import customers_pb2
 from proto.v1.response import status_pb2
 from customers.validators import validate_customer
-from utils.grpc import log_requests
+from utils.grpc import log_requests, catch_errors
+from utils.exceptions import exception_to_runtime_error
 from db.session import Session
 from customers.models import Customer
+
 
 @log_requests
 class CustomerService(customers_pb2_grpc.CustomerServiceServicer):
 
+    @catch_errors(customers_pb2.CreateCustomerResponse)
     def CreateCustomer(self, request, context):
         """
         Create a customer
@@ -38,11 +41,13 @@ class CustomerService(customers_pb2_grpc.CustomerServiceServicer):
                 status=status_pb2.Status(code=200),
             )
 
-        except:
+        except Exception as e:
             db.rollback()
 
             return customers_pb2.CreateCustomerResponse(
-                status=status_pb2.Status(code=500),
+                status=status_pb2.Status(
+                    code=500,
+                    runtime_errors=[exception_to_runtime_error(e)]),
             )
 
         finally:
