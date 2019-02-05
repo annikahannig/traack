@@ -43,6 +43,7 @@ def main(args):
     # Start listen and serve
     server.add_insecure_port('[::]:2344')
     server.start()
+    print("Listening on :2344")
 
     try:
         while True:

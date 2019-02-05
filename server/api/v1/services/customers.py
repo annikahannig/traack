@@ -69,7 +69,7 @@ class CustomerService(customers_pb2_grpc.CustomerServiceServicer):
             status=status_pb2.Status(code=200))
 
 
-    @catch_errors(customers_pb2.DeleteCustomersResponse)
+    @catch_errors(customers_pb2.DeleteCustomerResponse)
     def DeleteCustomer(self, request, context):
         """
         Delete a customer
