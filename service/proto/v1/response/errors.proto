@@ -10,3 +10,8 @@ message ValidationError {
     repeated string messages = 20;
 }
 
+message RuntimeError {
+    string exception = 10;
+    repeated string messages = 20;
+}
+

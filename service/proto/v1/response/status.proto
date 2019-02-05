@@ -9,9 +9,10 @@ option go_package = "github.com/mhannig/traack/service/lib/v1/response";
 
 
 message Status {
-    int32 code = 1;
-    string message = 2;
+    int32 code = 10;
+    string message = 20;
 
-    repeated ValidationError data_errors = 3;
+    repeated RuntimeError runtime_errors = 30;
+    repeated ValidationError data_errors = 40;
 }
 
