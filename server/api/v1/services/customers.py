@@ -53,6 +53,33 @@ class CustomerService(customers_pb2_grpc.CustomerServiceServicer):
         finally:
             db.close()
 
+    @catch_errors(customers_pb2.ListCustomersResponse)
+    def ListCustomers(self, request, context):
+        """
+        List all customers
+
+        :param request: A ListCustomersRequest
+        :param context: the grpc context
+        """
+        db = Session()
+        customers = db.query(Customer).all()
+
+        return customers_pb2.ListCustomersResponse(
+            customers=[c.to_message() for c in customers],
+            status=status_pb2.Status(code=200))
+
+
+    @catch_errors(customers_pb2.DeleteCustomersResponse)
+    def DeleteCustomer(self, request, context):
+        """
+        Delete a customer
+
+        :param request: A ListCustomerRequest
+        :param context: The Grpc context
+        """
+        return customers_pb2.DeleteCustomerResponse()
+
+
 
 
 def register(server):
