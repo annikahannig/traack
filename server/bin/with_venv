@@ -1,0 +1,16 @@
+#!/bin/bash
+
+
+BASEDIR=$(dirname $0)
+
+# Get absolute basedirectory
+APPDIR=`python3 -c "import os; print(os.path.abspath('$BASEDIR/..'));"`
+
+# Operate from application directory
+cd $APPDIR
+
+# Load virtualenv
+source ./venv/bin/activate
+
+# == exec file 
+exec $@
