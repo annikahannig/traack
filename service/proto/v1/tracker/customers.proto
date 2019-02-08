@@ -41,6 +41,13 @@ message CreateCustomerResponse {
     traack.v1.response.Status status = 2;
 }
 
+message DeleteCustomerRequest {
+    uint64 id = 10;
+}
+
+message DeleteCustomerResponse {
+    traack.v1.response.Status status = 10;
+}
 
 service CustomerService {
     rpc CreateCustomer(CreateCustomerRequest) 
@@ -51,6 +58,9 @@ service CustomerService {
 
     rpc ListCustomers(ListCustomersRequest)
         returns (ListCustomersResponse) {}
+
+    rpc DeleteCustomer(DeleteCustomerRequest)
+        returns (DeleteCustomerResponse) {}
 }
 
 

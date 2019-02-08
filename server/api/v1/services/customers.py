@@ -65,7 +65,8 @@ class CustomerService(customers_pb2_grpc.CustomerServiceServicer):
         customers = db.query(Customer).all()
 
         return customers_pb2.ListCustomersResponse(
-            customers=[c.to_message() for c in customers],
+            customers=[c.to_message(customers_pb2.Customer)
+                       for c in customers],
             status=status_pb2.Status(code=200))
 
 
