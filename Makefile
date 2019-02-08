@@ -26,7 +26,7 @@ protobuf:
 	# Console:
 	python3 -m grpc_tools.protoc -Iservice/ \
 		    --python_out=console/ \
-			--grpc_python_out=server/ \
+			--grpc_python_out=console/ \
 		    service/proto/v1/response/*.proto \
 		    service/proto/v1/tracker/*.proto
 
