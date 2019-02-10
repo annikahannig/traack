@@ -1,0 +1,51 @@
+
+syntax = "proto3";
+
+package traack.v1.auth;
+
+import "proto/v1/response/status.proto";
+
+option go_package = "github.com/mhannig/traack/service/lib/v1/auth";
+
+
+message User {
+    uint64 id = 10;
+    string username = 20;
+    string first_name = 30;
+    string last_name = 40;
+    string email = 50;
+
+    string api_key = 60;
+    string api_secret = 70;
+
+    bool is_admin = 80;
+}
+
+// Users Service
+message CreateUserRequest {
+    User user = 10;
+    string password = 20;
+}
+
+message CreateUserResponse {
+    User user = 10;
+    Status status = 20;
+}
+
+
+message WhoamiResponse() {
+    User user = 10;
+    Status status = 20;
+}
+
+
+service UserService {
+    rpc CreateUser(CreateUserRequest)
+        returns (CreateUserResponse) {}
+
+    rpc Whoami()
+        returns (WhoamiResponse) {}
+}
+
+// ...
+

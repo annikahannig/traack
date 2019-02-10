@@ -1,0 +1,33 @@
+
+syntax = "proto3"; 
+
+package traack.v1.auth;
+
+import "proto/v1/response/status.proto";
+import "google/protobuf/timestamp.proto";
+
+option go_package = "github.com/mhannig/traack/service/lib/v1/auth";
+
+message AuthToken {
+    string bearer = 10;
+    google.protobuf.Timestamp issued_at = 20;    
+    google.protobuf.Timestamp expires_at = 30;
+}
+
+
+message ApiKeyAuthTokenRequest {
+    string api_key = 10;
+    string api_secret = 20;
+}
+
+
+message ApiKeyAuthTokenResponse {
+    AuthToken auth_token = 10;
+    Status status = 20;
+}
+
+service TokenService {
+    rpc AuthenticateApiKey(ApiKeyAuthTokenRequest)
+        returns (ApiKeyAuthTokenResponse) {};
+}
+
