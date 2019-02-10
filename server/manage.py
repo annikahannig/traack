@@ -41,6 +41,7 @@ def print_available_scripts(scripts):
     for script in scripts.keys():
         print(" - {}".format(script))
 
+
 def manage_cli():
     # Load script
     scripts = import_scripts()
