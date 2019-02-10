@@ -1,8 +1,8 @@
-"""add user and tokens
+"""add User and Token
 
-Revision ID: 108b717b062f
+Revision ID: 9e8de88a29b7
 Revises: 3c183162b40e
-Create Date: 2019-02-10 12:37:22.572752
+Create Date: 2019-02-10 16:33:50.864479
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '108b717b062f'
+revision = '9e8de88a29b7'
 down_revision = '3c183162b40e'
 branch_labels = None
 depends_on = None
@@ -27,7 +27,9 @@ def upgrade():
     sa.Column('first_name', sa.String(length=30), nullable=True),
     sa.Column('last_name', sa.String(length=30), nullable=True),
     sa.Column('email', sa.String(length=60), nullable=True),
-    sa.PrimaryKeyConstraint('id')
+    sa.Column('is_admin', sa.Boolean(), nullable=False),
+    sa.PrimaryKeyConstraint('id'),
+    sa.UniqueConstraint('username')
     )
     op.create_table('auth_token',
     sa.Column('id', sa.Integer(), nullable=False),

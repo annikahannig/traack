@@ -18,6 +18,7 @@ class User(ProtobufModelMixin, models.Base):
                    primary_key=True)
 
     username = sa.Column(sa.String(80),
+                         unique=True,
                          nullable=False)
 
     password_hash = sa.Column(sa.String(80))
@@ -33,6 +34,8 @@ class User(ProtobufModelMixin, models.Base):
     last_name = sa.Column(sa.String(30), nullable=True)
     email = sa.Column(sa.String(60), nullable=True)
 
+    # Flags
+    is_admin = sa.Column(sa.Boolean(), nullable=False)
 
 class Token(ProtobufModelMixin, models.Base):
     """
