@@ -23,7 +23,7 @@ message ApiKeyAuthTokenRequest {
 
 message ApiKeyAuthTokenResponse {
     AuthToken auth_token = 10;
-    Status status = 20;
+    traack.v1.response.Status status = 20;
 }
 
 service TokenService {

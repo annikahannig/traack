@@ -4,6 +4,7 @@ syntax = "proto3";
 package traack.v1.auth;
 
 import "proto/v1/response/status.proto";
+import "google/protobuf/empty.proto";
 
 option go_package = "github.com/mhannig/traack/service/lib/v1/auth";
 
@@ -29,13 +30,13 @@ message CreateUserRequest {
 
 message CreateUserResponse {
     User user = 10;
-    Status status = 20;
+    traack.v1.response.Status status = 20;
 }
 
 
-message WhoamiResponse() {
+message WhoamiResponse {
     User user = 10;
-    Status status = 20;
+    traack.v1.response.Status status = 20;
 }
 
 
@@ -43,7 +44,7 @@ service UserService {
     rpc CreateUser(CreateUserRequest)
         returns (CreateUserResponse) {}
 
-    rpc Whoami()
+    rpc Whoami(google.protobuf.Empty)
         returns (WhoamiResponse) {}
 }
 
