@@ -67,6 +67,7 @@ def get_service(fqsn):
     except AttributeError:
         print("Could not load service: `{}` is not part of `{}`.".format(
             service_name, module_name))
+        return None
 
     service = service_class(_GRPC_CHANNEL)
 
