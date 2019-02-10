@@ -52,13 +52,14 @@ def manage_cli():
         return
 
     # Strip script from argv
+    script_name = sys.argv[1]
     sys.argv = sys.argv[:1] + sys.argv[2:]
 
     # Setup application
     application_init()
 
     # Run script
-    scripts["create_user"].__main__()
+    scripts[script_name].__main__()
 
 
 if __name__ == "__main__":
