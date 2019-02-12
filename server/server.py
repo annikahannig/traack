@@ -8,6 +8,7 @@ import grpc
 
 from bootstrap import application_init
 from api.v1.services import customers as customers_svc
+from api.v1.services import auth as auth_svc
 from db import engine
 
 
@@ -24,6 +25,7 @@ def main(args):
 
     # Register services
     customers_svc.register(server)
+    auth_svc.register(server)
 
     # Start listen and serve
     server.add_insecure_port('[::]:2344')
