@@ -8,23 +8,24 @@ import "proto/v1/response/status.proto";
 option go_package = "github.com/mhannig/traack/service/lib/v1/tracker";
 
 message Customer {
-    uint64 id = 1;
-
-    string name = 2;
+    uint64 id = 10;
+    string name = 20;
 }
 
 // Customers Service
 message GetCustomerRequest {
-    uint64 id = 1;
+    string authorization = 10;
+    uint64 id = 20;
 }
 
 message GetCustomerResponse {
-    Customer customer = 1;
-    traack.v1.response.Status status = 2;
+    Customer customer = 10;
+    traack.v1.response.Status status = 20;
 }
 
 
 message ListCustomersRequest {
+    string authorization = 10;
 }
 
 message ListCustomersResponse {

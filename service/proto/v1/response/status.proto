@@ -14,5 +14,6 @@ message Status {
 
     repeated RuntimeError runtime_errors = 30;
     repeated ValidationError data_errors = 40;
+    repeated AuthorizationError authorization_errors = 50;
 }
 

@@ -5,6 +5,10 @@ package traack.v1.response;
 
 option go_package = "github.com/mhannig/traack/service/lib/v1/response";
 
+message AuthorizationError {
+    string code = 10;
+}
+
 message ValidationError {
     string field = 10;
     repeated string messages = 20;

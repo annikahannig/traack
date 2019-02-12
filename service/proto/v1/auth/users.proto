@@ -24,8 +24,10 @@ message User {
 
 // Users Service
 message CreateUserRequest {
-    User user = 10;
-    string password = 20;
+    string authorization = 10;
+
+    User user = 20;
+    string password = 30;
 }
 
 message CreateUserResponse {
@@ -33,12 +35,14 @@ message CreateUserResponse {
     traack.v1.response.Status status = 20;
 }
 
-
 message WhoamiResponse {
     User user = 10;
     traack.v1.response.Status status = 20;
 }
 
+message WhoamiRequest {
+    string authorization = 10;
+}
 
 service UserService {
     rpc CreateUser(CreateUserRequest)
