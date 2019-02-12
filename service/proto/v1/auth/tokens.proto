@@ -15,19 +15,19 @@ message AuthToken {
 }
 
 
-message ApiKeyAuthTokenRequest {
+message AuthenticateApiKeyRequest {
     string api_key = 10;
     string api_secret = 20;
 }
 
 
-message ApiKeyAuthTokenResponse {
+message AuthenticateApiKeyResponse {
     AuthToken auth_token = 10;
     traack.v1.response.Status status = 20;
 }
 
 service TokenService {
-    rpc AuthenticateApiKey(ApiKeyAuthTokenRequest)
-        returns (ApiKeyAuthTokenResponse) {};
+    rpc AuthenticateApiKey(AuthenticateApiKeyRequest)
+        returns (AuthenticateApiKeyResponse) {};
 }
 
