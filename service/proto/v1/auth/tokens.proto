@@ -16,8 +16,8 @@ message AuthToken {
 
 
 message AuthenticateApiKeyRequest {
-    string api_key = 10;
-    string api_secret = 20;
+    string key = 10;
+    string secret = 20;
 }
 
 
