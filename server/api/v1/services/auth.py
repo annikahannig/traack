@@ -11,30 +11,38 @@ from proto.v1.auth import (
 )
 from proto.v1.auth.tokens_pb2_grpc import (
     TokenServiceServicer,
+)
+from proto.v1.auth.tokens_pb2 import (
     AuthenticateApiKeyRequest,
     AuthenticateApiKeyResponse,
 )
-from proto.v1.auth.users_pb2_grpc import UserServiceServicer
+from proto.v1.auth.users_pb2_grpc import (
+    UserServiceServicer,
+)
+from utils.grpc import log_requests, catch_errors
+from auth.services import tokens as tokens_svc
 
 
+@log_requests
 class TokenService(TokenServiceServicer):
     """
     Implement Token Service
     """
+
+    @catch_errors
     def AuthenticateApiKey(self, request, context):
         """
         Authenticate an api key and create a
         session / auth token
         """
-        print("Authenticating")
-        print(request)
+        token = tokens_svc.authenticate_api_key(
+            request.key, request.secret)
 
 
 class UserService(UserServiceServicer):
     """
     User Service RPC Handler Implementation
     """
-
 
 def register(server):
     """Register service at server"""
@@ -45,4 +53,5 @@ def register(server):
         .add_TokenServiceServicer_to_server(token_service, server)
 
     users_pb2_grpc \
-        .add_UserServiceSerivcer_to_server(user_service, server)
+        .add_UserServiceServicer_to_server(user_service, server)
+

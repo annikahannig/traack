@@ -2,7 +2,7 @@
 import sqlalchemy as sa
 
 from db import models
-from auth import tokens
+from auth.services import tokens
 from utils.models import ProtobufModelMixin
 
 
@@ -36,6 +36,7 @@ class User(ProtobufModelMixin, models.Base):
 
     # Flags
     is_admin = sa.Column(sa.Boolean(), nullable=False)
+
 
 class Token(ProtobufModelMixin, models.Base):
     """
