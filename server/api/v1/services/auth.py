@@ -16,11 +16,19 @@ from proto.v1.auth.tokens_pb2 import (
     AuthenticateApiKeyRequest,
     AuthenticateApiKeyResponse,
 )
+from proto.v1.response.errors_pb2 import (
+    AuthorizationError,
+)
+from proto.v1.response.status_pb2 import (
+    Status
+)
 from proto.v1.auth.users_pb2_grpc import (
     UserServiceServicer,
 )
 from utils.grpc import log_requests, catch_errors
 from auth.services import tokens as tokens_svc
+
+
 
 
 @log_requests
@@ -29,15 +37,30 @@ class TokenService(TokenServiceServicer):
     Implement Token Service
     """
 
-    @catch_errors
+    @catch_errors(tokens_pb2.AuthenticateApiKeyResponse)
     def AuthenticateApiKey(self, request, context):
         """
         Authenticate an api key and create a
         session / auth token
         """
-        token = tokens_svc.authenticate_api_key(
+        user = tokens_svc.authenticate_api_key(
             request.key, request.secret)
 
+        if not user:
+            return AuthenticateApiKeyResponse(
+                status=Status(
+                    authorization_errors=[
+                        AuthorizationError(
+                            code="invalid_key_or_secret")],
+                    code=403))
+
+        # We have a valid user, issue a token
+        token = tokens_svc.create_token_for_user(user)
+
+        return AuthenticateApiKeyResponse(
+            status=Status(code=200),
+            auth_token=token,
+        )
 
 class UserService(UserServiceServicer):
     """
