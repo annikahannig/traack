@@ -8,12 +8,6 @@ import "google/protobuf/timestamp.proto";
 
 option go_package = "github.com/mhannig/traack/service/lib/v1/auth";
 
-message AuthToken {
-    string bearer = 10;
-    google.protobuf.Timestamp issued_at = 20;    
-    google.protobuf.Timestamp expires_at = 30;
-}
-
 
 message AuthenticateApiKeyRequest {
     string key = 10;
@@ -22,7 +16,7 @@ message AuthenticateApiKeyRequest {
 
 
 message AuthenticateApiKeyResponse {
-    AuthToken auth_token = 10;
+    string auth_token = 10;
     traack.v1.response.Status status = 20;
 }
 
