@@ -60,18 +60,22 @@ def get_service(fqsn):
     except ImportError:
         print("Could not load service: Module `{}` not found.".format(
             module_name))
-        return None
+        return None, None
 
     try:
         service_class = getattr(service_module, service_name)
     except AttributeError:
         print("Could not load service: `{}` is not part of `{}`.".format(
             service_name, module_name))
-        return None
+        return None, None
 
     service = service_class(_GRPC_CHANNEL)
 
-    return service
+    # Get relevant messages:
+    messages_module = ".".join(fqsn.split(".")[:-1])
+    messages = get_messages(messages_module)
+
+    return service, messages
 
 
 def get_messages(fqmn):
@@ -93,6 +97,7 @@ def get_messages(fqmn):
         return None
 
     return module
+
 
 
 def connect():
