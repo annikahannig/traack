@@ -48,7 +48,7 @@ service UserService {
     rpc CreateUser(CreateUserRequest)
         returns (CreateUserResponse) {}
 
-    rpc Whoami(google.protobuf.Empty)
+    rpc Whoami(WhoamiRequest)
         returns (WhoamiResponse) {}
 }
 

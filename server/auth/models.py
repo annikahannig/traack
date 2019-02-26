@@ -2,7 +2,7 @@
 import sqlalchemy as sa
 
 from db import models
-from auth.services import tokens
+from auth.services import secrets as secrets_svc
 from utils.models import ProtobufModelMixin
 
 
@@ -25,9 +25,9 @@ class User(ProtobufModelMixin, models.Base):
 
     # Serice access
     api_key = sa.Column(sa.String(16),
-                        default=tokens.make_api_key)
+                        default=secrets_svc.make_api_key)
     api_secret = sa.Column(sa.String(86),
-                        default=tokens.make_api_secret)
+                        default=secrets_svc.make_api_secret)
 
     # Personal info
     first_name = sa.Column(sa.String(30), nullable=True)
@@ -51,7 +51,7 @@ class Token(ProtobufModelMixin, models.Base):
     bearer = sa.Column(sa.String(86),
                        nullable=True,
                        unique=True,
-                       default=tokens.make_api_secret)
+                       default=secrets_svc.make_api_secret)
 
     user_id = sa.Column(sa.Integer,
                         sa.ForeignKey("auth_user.id",

@@ -38,10 +38,27 @@ def create_token_for_user(user):
     return jwt.encode(payload, TOKEN_SECRET_KEY, algorithm="HS256")
 
 
+def authenticate_auth_token(token):
+    """Authenticate a jwt auth token"""
+    try:
+        payload = jwt.decode(token, TOKEN_SECRET_KEY)
+    except:
+        return None
+
+    user_id = payload["sub"]
+
+    s = Session()
+    user = s.query(User).filter_by(id=user_id).first()
+    s.close()
+
+    return user
+
+
 def authenticate_api_key(key, secret):
     """Authenticate an API key"""
     s = Session()
-    user = s.query(User).filter_by(api_key=key, api_secret=secret)
+    user = s.query(User).filter_by(api_key=key, api_secret=secret).first()
     s.close()
 
+    return user
 

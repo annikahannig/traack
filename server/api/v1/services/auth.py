@@ -16,6 +16,10 @@ from proto.v1.auth.tokens_pb2 import (
     AuthenticateApiKeyRequest,
     AuthenticateApiKeyResponse,
 )
+from proto.v1.auth.users_pb2 import (
+    WhoamiResponse,
+    User,
+)
 from proto.v1.response.errors_pb2 import (
     AuthorizationError,
 )
@@ -27,8 +31,6 @@ from proto.v1.auth.users_pb2_grpc import (
 )
 from utils.grpc import log_requests, catch_errors
 from auth.services import tokens as tokens_svc
-
-
 
 
 @log_requests
@@ -62,10 +64,40 @@ class TokenService(TokenServiceServicer):
             auth_token=token,
         )
 
+
+@log_requests
 class UserService(UserServiceServicer):
     """
     User Service RPC Handler Implementation
     """
+
+    @catch_errors(WhoamiResponse)
+    def Whoami(self, request, context):
+        """Reply with authorized user"""
+        print("Req:")
+        print(request)
+        user = tokens_svc.authenticate_auth_token(request.authorization)
+        if not user:
+            return WhoamiResponse(
+                status=Status(
+                    code=403,
+                    authorization_errors=[
+                        AuthorizationError(code="invalid_token")
+                    ]))
+
+        # Respond with the current user
+        return WhoamiResponse(
+            status=Status(code=200),
+            user=User(
+                id=user.id,
+                email=user.email,
+                first_name=user.first_name,
+                last_name=user.last_name,
+                username=user.username,
+                is_admin=user.is_admin,
+                api_key=user.api_key,
+                api_secret=user.api_secret))
+
 
 def register(server):
     """Register service at server"""
