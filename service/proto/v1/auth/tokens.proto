@@ -1,7 +1,7 @@
 
 syntax = "proto3"; 
 
-package traack.v1.auth;
+package v1.auth;
 
 import "proto/v1/response/status.proto";
 import "google/protobuf/timestamp.proto";
@@ -17,7 +17,7 @@ message AuthenticateApiKeyRequest {
 
 message AuthenticateApiKeyResponse {
     string auth_token = 10;
-    traack.v1.response.Status status = 20;
+    v1.response.Status status = 20;
 }
 
 service TokenService {

@@ -1,7 +1,7 @@
 
 syntax = "proto3";
 
-package traack.v1.auth;
+package v1.auth;
 
 import "proto/v1/response/status.proto";
 import "google/protobuf/empty.proto";
@@ -32,12 +32,12 @@ message CreateUserRequest {
 
 message CreateUserResponse {
     User user = 10;
-    traack.v1.response.Status status = 20;
+    v1.response.Status status = 20;
 }
 
 message WhoamiResponse {
     User user = 10;
-    traack.v1.response.Status status = 20;
+    v1.response.Status status = 20;
 }
 
 message WhoamiRequest {

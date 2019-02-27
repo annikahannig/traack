@@ -1,7 +1,7 @@
 
 syntax = "proto3";
 
-package traack.v1.response;
+package v1.response;
 
 import "proto/v1/response/errors.proto";
 
