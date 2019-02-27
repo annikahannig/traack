@@ -65,3 +65,25 @@ class catch_errors:
                 return response
 
         return wrapper
+
+
+def _traverse_message(descriptor, level=0):
+    padding = "    " * level
+    print(padding + descriptor.name)
+
+    if not hasattr(descriptor, "fields"):
+        return
+
+    for field in descriptor.fields:
+        _traverse_message(field, level+1)
+
+
+def to_message(message_class, data: dict):
+    """
+    Map a dict to a message class.
+    Traverse message and create instance.
+    """
+    descriptor = message_class.DESCRIPTOR
+
+    _traverse_message(descriptor)
+

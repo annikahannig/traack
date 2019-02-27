@@ -50,5 +50,7 @@ class ProtobufModelMixin(metaclass=ProtobufModelMixinMeta):
 
     def to_message(self, pb_message_type):
         """"Convert to protobuf message type"""
+        props = self.to_dict()
+        # Filter props not present as columns
         return pb_message_type(**self.to_dict())
 

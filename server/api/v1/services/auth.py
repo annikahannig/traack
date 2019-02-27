@@ -74,8 +74,6 @@ class UserService(UserServiceServicer):
     @catch_errors(WhoamiResponse)
     def Whoami(self, request, context):
         """Reply with authorized user"""
-        print("Req:")
-        print(request)
         user = tokens_svc.authenticate_auth_token(request.authorization)
         if not user:
             return WhoamiResponse(
@@ -98,6 +96,31 @@ class UserService(UserServiceServicer):
                 api_key=user.api_key,
                 api_secret=user.api_secret))
 
+
+    @catch_errors(WhoamiResponse)
+    def Whoami(self, request, context) -> WhoamiResponse:
+        """Reply with authorized user"""
+        user = tokens_svc.authenticate_auth_token(request.authorization)
+        if not user:
+            return WhoamiResponse(
+                status=Status(
+                    code=403,
+                    authorization_errors=[
+                        AuthorizationError(code="invalid_token")
+                    ]))
+
+        # Respond with the current user
+        return WhoamiResponse(
+            status=Status(code=200),
+            user=User(
+                id=user.id,
+                email=user.email,
+                first_name=user.first_name,
+                last_name=user.last_name,
+                username=user.username,
+                is_admin=user.is_admin,
+                api_key=user.api_key,
+                api_secret=user.api_secret))
 
 def register(server):
     """Register service at server"""
